@@ -2,13 +2,22 @@
 const express = require("express"),
     mongoose = require("mongoose");
 
+
+
+
 const app = express();
-app.use(express.urlencoded({extended: true}));
-app.use(express.static("public"))
+app.use(express.urlencoded({extended: true}));     
+app.use(express.static("public"));      // all static elements stored in public
+app.set("view engine", "ejs");          // using ejs as view engine
+
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.render("login");
 })
+
+app.post("/", (req, res) => {
+
+});
 
 
 

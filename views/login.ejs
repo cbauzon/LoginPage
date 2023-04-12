@@ -1,0 +1,54 @@
+<%- include("partials/header") -%>
+
+<div class="page">
+    <div class="login-box">
+        <div class="title">
+            <h1>Untitled</h1>
+        </div>
+
+        <div class="form">
+            <form action="/" method="post">
+                <h1>Sign in to Untitled</h1>
+
+                <button class="btn btn-light">
+                    <i class="fa-brands fa-google fa-lg"></i>
+                    Sign in with Google
+                </button>
+                <button class="btn btn-light">
+                    <i class="fa-brands fa-apple fa-xl"></i>
+                    Sign in with Apple
+                </button>
+
+                <div class="divider">
+                    <hr>
+                    <span class="or-text">or</span>
+                    <hr>
+                </div>
+
+                <div class="form-floating"> 
+                    <input id="email" type="email" class="form-control" placeholder="Email address">
+                    <label for="email">Email address</label>
+                </div>
+
+                <div class="form-floating">
+                    <input id="password" type="password" class="form-control" placeholder="Password">
+                    <label for="password">Password</label>
+                </div>
+
+                <button class="btn btn-light" type="submit">Log In</button>
+            </form>
+        </div>
+        
+
+
+    </div>
+    <footer>
+        <div>
+            <a href="https://www.linkedin.com/in/christian-jay-bauzon-0317bb16a/"><i class="fa-brands fa-linkedin fa-2xl footer-icon me-2 mb-4"></i></a>
+            <a href="https://github.com/cbauzon"><i class="fa-brands fa-github fa-2xl mb-4"></i></a>
+            <p>© 2023 CJ Bauzon </p>
+        </div>
+    </footer>
+</div>
+
+<%- include("partials/footer") -%>

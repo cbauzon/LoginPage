@@ -1,0 +1,78 @@
+body {
+    background-color: #242D34;
+    color: #D6D9DB;
+
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+.page {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.login-box {
+    background-color: black;
+    border-radius: 20px;
+
+    height: 650px;
+    width: 600px;
+    margin: 30.8% auto 0;
+
+}
+
+.title {
+    padding-top: 15px;
+    margin: 0 0 15px;
+}
+
+.form {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.form button {
+    border-radius: 20px;
+    display: block;
+    margin: 25px auto;
+    width: 75%;
+}
+
+.form button i {
+    margin-right: 5px;
+}
+
+footer {
+    margin-top: 2%;
+    height: 5%;
+    text-align: center;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 75%;
+}
+.divider hr {
+    flex-grow: 1;
+    height: 1px;
+    border: none;
+    background-color: #ccc;
+    margin: 0 10px;
+}
+.or-text {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-floating {
+    width: 75%;
+    margin: 0 auto 15px;
+}
