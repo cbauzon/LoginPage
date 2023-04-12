@@ -9,18 +9,19 @@ h1 {
     margin-bottom: 0;
 }
 
-.page {
-    text-align: center;
-    
-}
-
 .login-box {
     background-color: black;
     border-radius: 20px;
 
     height: 650px;
     width: 600px;
-    margin: 115px auto 0;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    text-align: center;
 
 }
 
