@@ -9,11 +9,8 @@ h1 {
 }
 
 .page {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
+    
 }
 
 .login-box {
@@ -22,7 +19,7 @@ h1 {
 
     height: 650px;
     width: 600px;
-    margin: 30.8% auto 0;
+    margin: 115px auto 0;
 
 }
 
@@ -48,7 +45,7 @@ h1 {
 }
 
 footer {
-    margin-top: 2%;
+    margin-top: 8%;
     height: 5%;
     text-align: center;
 }
