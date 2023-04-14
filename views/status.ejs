@@ -1,0 +1,24 @@
+<%- include("partials/header") -%>
+
+    <div>
+        <h1>Hello <%= user %>!</h1>
+    </div>
+
+    <div class="online-accounts">
+        <h2>Here are the online accounts:</h2>
+        <ul>
+            <% userList.forEach((user) => { %>
+                <li><%= user.name %>
+                    <span class="badge text-bg-success">Online</span>
+                </li>
+            <%})%>
+        </ul>
+
+    </div>
+
+
+
+
+
+
+<%- include("partials/footer") -%>
