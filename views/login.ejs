@@ -1,5 +1,13 @@
 <%- include("partials/header") -%>
-    <div class="alertPlaceHolder"></div>
+
+    <% if (incorrect === 1) { %>
+        <div class="alert alert-danger alert-dismissible w-50" role="alert">
+            <div>
+                Incorrect User or Password!
+            </div> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <%}%>
 
     <div class="login-box">
         <div class="title">

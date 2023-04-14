@@ -9,6 +9,10 @@ h1 {
     margin-bottom: 0;
 }
 
+.alert {
+    margin: 15% auto;
+}
+
 .login-box {
     background-color: black;
     border-radius: 20px;
