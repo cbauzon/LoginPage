@@ -1,7 +1,7 @@
 /* Libraries Used */
 const express = require("express"),
     mongoose = require("mongoose"),
-    $ = require("jquery");
+    session = require("express-session");
 
 /* Setting up Mongoose */
 mongoose.connect("mongodb://127.0.0.1:27017/loginPage");
@@ -26,6 +26,7 @@ let fullName = "";
 
 /* Routes */
 app.get("/", (req, res) => {
+    console.log(req.session);
     res.render("login", {incorrect: 0});
 });
 
@@ -38,6 +39,13 @@ app.get("/status", (req, res) => {
         res.redirect("/");
     }
 });
+
+app.post("/logout", (req, res) => {
+    User.updateOne({email: email}, {status: 0}).then(() => {
+        console.log("Log out update successful for", email, "!");
+    });
+    res.redirect("/");
+})
 
 app.post("/", (req, res) => {
     email = req.body.email;
@@ -71,9 +79,6 @@ const authUser = (email, password, res) => {
     });
 }
 
-const checkStatus = () => {
-    
-}
 
 /* Start App */
 app.listen(process.env.PORT || 3000, () => {
