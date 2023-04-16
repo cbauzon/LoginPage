@@ -38,18 +38,29 @@ app.post("/", (req, res) => {
 });
 
 app.get("/status", (req, res) => {
+    
     if (req.session.userID) {
-        User.find({status: 1}).then((userList) => {
+        // console.log(req.session);
+        
+        User.find({_id: req.session.userID}).then((user) => {
+            if (user[0].status) {
+                User.find({status: 1}).then((userList) => {
             
-            res.render("status", {
-                userName: req.session.name,
-                userList: userList
-            });
+                    res.render("status", {
+                        userName: req.session.name,
+                        userList: userList
+                    });
+        
+                });
+            } else {
+                res.redirect("/");
+            }
+        });
 
-        })
     } else {
         res.redirect("/");
     }
+
 });
 
 app.post("/logout", (req, res) => {
@@ -66,7 +77,7 @@ app.post("/logout", (req, res) => {
 const authUser = (email, password, req, res) => {
 
     User.find({email: email}).then((userList) => {
-        console.log(userList);
+        // console.log(userList);
 
         // Logic for checking for user and password
         if (userList.length === 1 && userList[0].password === password) {
@@ -77,7 +88,7 @@ const authUser = (email, password, req, res) => {
             User.updateOne({_id: req.session.userID}, {status: 1}).then(() => {
                 console.log("User " + req.session.name + " is now online!");
             })
-
+    
             res.redirect("/status")
         } else {
             console.log("Incorrect");
@@ -86,6 +97,7 @@ const authUser = (email, password, req, res) => {
         
     });
 }
+
 
 
 /* Start App */
