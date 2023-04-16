@@ -1,16 +1,23 @@
 <%- include("partials/header") -%>
 
     <div>
-        <h1>Hello <%= user %>!</h1>
+        <h1>Hello <%= userName %>!</h1>
     </div>
 
     <div class="online-accounts">
         <h2>Here are the online accounts:</h2>
         <ul>
             <% userList.forEach((user) => { %>
-                <li><%= user.name %>
-                    <span class="badge text-bg-success">Online</span>
-                </li>
+                <%if (userName === user.name) {%>
+                    <li><%= user.name %> (You)
+                        <span class="badge text-bg-success">Online</span>
+                    </li>
+                <%} else {%>
+                    <li><%= user.name %>
+                        <span class="badge text-bg-success">Online</span>
+                    </li>
+                <%}%>
+                
             <%})%>
         </ul>
 

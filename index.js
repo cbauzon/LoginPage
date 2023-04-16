@@ -17,63 +17,71 @@ const User = mongoose.model("User", userSchema);
 const app = express();
 app.use(express.urlencoded({extended: true}));     
 app.use(express.static("public"));      // all static elements stored in public
+app.use(session({
+    secret: "watermelon",
+    resave: false,
+    saveUninitialized: true
+}));
 app.set("view engine", "ejs");          // using ejs as view engine
 
-/* Global Variables */
-let email = "";
-let password = "";
-let fullName = "";
 
 /* Routes */
 app.get("/", (req, res) => {
-    console.log(req.session);
     res.render("login", {incorrect: 0});
 });
 
+app.post("/", (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+
+    authUser(email, password, req, res);
+});
+
 app.get("/status", (req, res) => {
-    if (email) {
+    if (req.session.userID) {
         User.find({status: 1}).then((userList) => {
-            res.render("status", {user: fullName, userList: userList});
-        });
+            
+            res.render("status", {
+                userName: req.session.name,
+                userList: userList
+            });
+
+        })
     } else {
         res.redirect("/");
     }
 });
 
 app.post("/logout", (req, res) => {
-    User.updateOne({email: email}, {status: 0}).then(() => {
-        console.log("Log out update successful for", email, "!");
+    User.updateOne({_id: req.session.userID}, {status: 0}).then(() => {
+        console.log("Log out update successful for", req.session.name, "!");
     });
     res.redirect("/");
 })
 
-app.post("/", (req, res) => {
-    email = req.body.email;
-    password = req.body.password;
 
-    authUser(email, password, res);
-});
 
 
 /* Helper Functions */
-const authUser = (email, password, res) => {
-    let incorrect = 0;
+const authUser = (email, password, req, res) => {
 
     User.find({email: email}).then((userList) => {
         console.log(userList);
 
         // Logic for checking for user and password
         if (userList.length === 1 && userList[0].password === password) {
-            console.log("Correct");
-            fullName = userList[0].name;
-            User.updateOne({email: userList[0].email}, {status: 1}).then(() => {
-                console.log("Update successful!");
-            });
-            res.redirect("/status");
+            req.session.userID = userList[0]._id;
+            req.session.name = userList[0].name;
+            req.session.email = userList[0].email;
+
+            User.updateOne({_id: req.session.userID}, {status: 1}).then(() => {
+                console.log("User " + req.session.name + " is now online!");
+            })
+
+            res.redirect("/status")
         } else {
-            incorrect = 1;
             console.log("Incorrect");
-            res.render("login", {incorrect: incorrect});
+            res.render("login", {incorrect: 1});
         }
         
     });
