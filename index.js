@@ -54,7 +54,7 @@ app.get("/status", (req, res) => {
 
 app.post("/logout", (req, res) => {
     User.updateOne({_id: req.session.userID}, {status: 0}).then(() => {
-        console.log("Log out update successful for", req.session.name, "!");
+        console.log("Log out update successful for", req.session.name + "!");
     });
     res.redirect("/");
 })

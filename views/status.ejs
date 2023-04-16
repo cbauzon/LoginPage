@@ -10,13 +10,12 @@
             <% userList.forEach((user) => { %>
                 <%if (userName === user.name) {%>
                     <li><%= user.name %> (You)
-                        <span class="badge text-bg-success">Online</span>
-                    </li>
+                        
                 <%} else {%>
                     <li><%= user.name %>
+                <%}%>
                         <span class="badge text-bg-success">Online</span>
                     </li>
-                <%}%>
                 
             <%})%>
         </ul>
