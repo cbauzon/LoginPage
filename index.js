@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    status: Number
+    status: Number,
 });
 const User = mongoose.model("User", userSchema);
 
@@ -17,6 +17,7 @@ const User = mongoose.model("User", userSchema);
 const app = express();
 app.use(express.urlencoded({extended: true}));     
 app.use(express.static("public"));      // all static elements stored in public
+app.use(express.json());
 app.use(session({
     secret: "watermelon",
     resave: false,
@@ -33,34 +34,31 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
-
     authUser(email, password, req, res);
 });
 
-app.get("/status", (req, res) => {
+app.get("/status", async (req, res) => {
     
     if (req.session.userID) {
         // console.log(req.session);
-        
-        User.find({_id: req.session.userID}).then((user) => {
+        try {
+            const user = await User.find({_id: req.session.userID});
             if (user[0].status) {
-                User.find({status: 1}).then((userList) => {
-            
-                    res.render("status", {
-                        userName: req.session.name,
-                        userList: userList
-                    });
-        
+                const userList = await User.find({status: 1});
+                res.render("status", {
+                    userName: req.session.name,
+                    userList: userList 
                 });
             } else {
-                res.redirect("/");
+                res.redirect("/")
             }
-        });
+        } catch (err) {
+            console.log(err);
+        }
 
     } else {
         res.redirect("/");
     }
-
 });
 
 app.post("/logout", (req, res) => {
@@ -70,7 +68,13 @@ app.post("/logout", (req, res) => {
     res.redirect("/");
 })
 
-
+// app.post("/os-info", (req, res) => {
+//     const osInfo = req.body;
+//     User.updateOne({_id: req.session.userID}, {
+//         os: osInfo.platform
+//     });
+//     res.redirect("/status");
+// })
 
 
 /* Helper Functions */
@@ -85,11 +89,12 @@ const authUser = (email, password, req, res) => {
             req.session.name = userList[0].name;
             req.session.email = userList[0].email;
 
-            User.updateOne({_id: req.session.userID}, {status: 1}).then(() => {
+            User.updateOne({_id: req.session.userID}, {
+                status: 1
+            }).then(() => {
                 console.log("User " + req.session.name + " is now online!");
-            })
-    
-            res.redirect("/status")
+            });
+            res.redirect("/status");
         } else {
             console.log("Incorrect");
             res.render("login", {incorrect: 1});

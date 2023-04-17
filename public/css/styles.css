@@ -1,12 +1,17 @@
 body {
     background-color: #242D34;
     color: #D6D9DB;
-
+    width: 75%;
+    margin: 5px auto;
 }
 
 h1 {
     font-size: 2.5rem;
     margin-bottom: 0;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 .alert {

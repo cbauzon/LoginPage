@@ -5,7 +5,8 @@
     </div>
 
     <div class="online-accounts">
-        <h2>Here are the online accounts:</h2>
+        <h2>Connected Users</h2>
+
         <ul>
             <% userList.forEach((user) => { %>
                 <%if (userName === user.name) {%>
@@ -14,18 +15,23 @@
                 <%} else {%>
                     <li><%= user.name %>
                 <%}%>
+                        
                         <span class="badge text-bg-success">Online</span>
                     </li>
                 
             <%})%>
-        </ul>
-
+        </ul>    
     </div>
 
 <form action="/logout" method="post">
     <button class="btn text-bg-danger">Log Out</button>
 </form>
-    
 
+<!-- Will potentially use this later-->
+<!-- <script src="https://cdn.jsdelivr.net/npm/ejs"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" 
+integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" 
+crossorigin="anonymous"></script>
+<script src="status.js"></script> -->
 
 <%- include("partials/footer") -%>
